@@ -1,0 +1,39 @@
+{
+    "type" : "struct",
+    "fields" : [{
+      "name" : "date",
+      "type" : "Date",
+      "nullable" : false,
+      "metadata" : { }
+    }, {
+      "name" : "index",
+      "type" : "string",
+      "nullable" : false,
+      "metadata" : { }
+    }, {
+      "name" : "open",
+      "type" : "float",
+      "nullable" : false,
+      "metadata" : { }
+    }, {
+      "name" : "high",
+      "type" : "float",
+      "nullable" : false,
+      "metadata" : { }
+    }, {
+      "name" : "low",
+      "type" : "float",
+      "nullable" : false,
+      "metadata" : { }
+    }, {
+      "name" : "close",
+      "type" : "float",
+      "nullable" : false,
+      "metadata" : { }
+    }, {
+      "name" : "volume",
+      "type" : "integer",
+      "nullable" : true,
+      "metadata" : { }
+    } ]
+}
