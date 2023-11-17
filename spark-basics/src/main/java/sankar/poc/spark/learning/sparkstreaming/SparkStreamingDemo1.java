@@ -47,7 +47,7 @@ public class SparkStreamingDemo1 {
         Dataset<Row> stock = spark.sql("select index, window.start as start, window.end as end, max(high) as 7dayhigh, min(low) as 7daylow, count(*) as count from stock where group by index, window(date, '7 days', '1 days') having index = 'Nifty 500' order by window.end");
         
         StreamingQuery query = stock.writeStream()
-        .outputMode("complete")
+        .outputMode("append")
         .format("console")
         .start();
 

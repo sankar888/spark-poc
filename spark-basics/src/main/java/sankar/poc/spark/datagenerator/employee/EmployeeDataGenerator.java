@@ -24,13 +24,14 @@ import sankar.poc.spark.csvwriter.CsvWriter;
 
 public class EmployeeDataGenerator {
     public static class Employee implements CsvRecord, Serializable {
-        private static final String DDL_SCHEMA = "`name` STRING NOT NULL,`doj` DATE NOT NULL,`designation` STRING,`jobGrade` INT,`dept` STRING,`salary` FLOAT";
+        private static final String DDL_SCHEMA = "`name` STRING NOT NULL,`doj` DATE NOT NULL,`designation` STRING,`jobGrade` INT,`dept` STRING,`salary` FLOAT, `numericString` STRING";
         private String name;
         private LocalDate doj;        
         private String designation;
         private int jobGrade;
         private String dept;
         private float salary;
+        private String numericString;
 
         public String getName() {
             return this.name;
@@ -80,6 +81,14 @@ public class EmployeeDataGenerator {
             this.salary = salary;
         }
 
+        public String getNumericString() {
+            return this.numericString;
+        }
+    
+        public void setNumericString(String numericString) {
+            this.numericString = numericString;
+        }
+
         @Override
         public String toString() {
             return "{" +
@@ -89,6 +98,7 @@ public class EmployeeDataGenerator {
                 ", jobGrade='" + getJobGrade() + "'" +
                 ", dept='" + getDept() + "'" +
                 ", salary='" + getSalary() + "'" +
+                ", numericString='" + getNumericString()+ "'" +
                 "}";
         }
         
@@ -104,6 +114,7 @@ public class EmployeeDataGenerator {
             schema = schema.add("jobGrade", "INT", false);
             schema = schema.add("dept", "STRING", false);
             schema = schema.add("salary", "FLOAT", false);
+            schema = schema.add("numericString", "STRING", false);
             return schema;
         }
 
@@ -112,7 +123,7 @@ public class EmployeeDataGenerator {
         }
 
         public String toCsv() {
-            return String.format("%s,%s,%s,%s,%s,%.2f", getName(), getDoj(), getDesignation(), getJobGrade(), getDept(), getSalary());
+            return String.format("%s,%s,%s,%s,%s,%.2f,%s", getName(), getDoj(), getDesignation(), getJobGrade(), getDept(), getSalary(), getNumericString());
         }
     }
 
@@ -130,6 +141,7 @@ public class EmployeeDataGenerator {
             e.setJobGrade(getJobGrade());
             e.setDept(getDept());
             e.setSalary(getSalary());
+            e.setNumericString(getNumericString());
             return e;
         }
 
@@ -159,7 +171,12 @@ public class EmployeeDataGenerator {
         private float getSalary() {
             float salary = (random.nextFloat() * (100000 - 50000) + 50000);
             return Math.round(salary * 100.0f) / 100.0f;
-        } 
+        }
+
+        private String getNumericString() {
+            return String.valueOf(random.nextInt(100));
+        }
+
     }
 
     /**

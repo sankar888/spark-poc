@@ -36,5 +36,10 @@
 				<artifactId>spark-sql_${scala.binary.version}</artifactId>
                 <version>${spark.version}</version>
 			</dependency>
+            <dependency>
+                <groupId>com.nokia.hai</groupId>
+		        <artifactId>hal-integration-util</artifactId>
+		        <version>99.99.99-20230531203643</version>
+            </dependency>
     </dependencies>
 </project>

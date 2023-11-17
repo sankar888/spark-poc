@@ -11,6 +11,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import org.apache.spark.sql.streaming.StreamingQueryException;
+import org.apache.spark.sql.streaming.Trigger;
 
 import sankar.poc.spark.datagenerator.employee.EmployeeDataGenerator;
 import sankar.poc.spark.datagenerator.employee.EmployeeDataGenerator.Employee;
@@ -22,7 +23,7 @@ public class SparkStreamingDemo0 {
     
     public static void main(String[] args) throws Exception {
         Path directory = Paths.get(SRC_DIR);
-        EmployeeDataGenerator.produceCsvFiles(directory, 5, "employee", 30, TimeUnit.SECONDS);
+        EmployeeDataGenerator.produceCsvFiles(directory, 5, "employee", 15, TimeUnit.SECONDS);
         runSpark();
     }
 
@@ -47,6 +48,8 @@ public class SparkStreamingDemo0 {
         StreamingQuery query = emp.writeStream()
         .outputMode("complete")
         .format("console")
+        .option("checkpointLocation", "C:/Users/sankaraa/work/tmp/spark/streamingdemo0/checkpoint")
+        .trigger(Trigger.ProcessingTime(30, TimeUnit.SECONDS))
         .start();
 
         query.awaitTermination();
